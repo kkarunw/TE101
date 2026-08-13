@@ -184,58 +184,78 @@
   .weekCard{min-height:auto}
 }
 
-/* ===== COMPACT CALENDAR FIX ===== */
+/* ===== FINAL COMPACT CALENDAR ===== */
 
-/* ลดความสูงของแต่ละสัปดาห์ */
+.calendar {
+  overflow: hidden !important;
+}
+
 .calendarGrid {
-  grid-auto-rows: 72px !important;
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr) !important;
+  grid-auto-rows: 64px !important;
 }
 
-/* ลดช่องแต่ละวัน */
 .day {
-  height: 72px !important;
-  min-height: 72px !important;
-  padding: 5px 7px !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  padding: 5px 6px !important;
+  overflow: hidden !important;
 }
 
-/* เลขวันที่ */
 .day > b {
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
 
-/* รายการกิจกรรม */
 .dayEvents {
-  margin-top: 3px !important;
+  display: flex !important;
+  flex-direction: column !important;
   gap: 2px !important;
+  margin-top: 3px !important;
+  overflow: hidden !important;
 }
 
-/* Event ให้เป็นบรรทัดสั้น */
 .eventChip {
-  font-size: 9px !important;
-  padding: 2px 5px !important;
-  line-height: 1.2 !important;
-
+  font-size: 8px !important;
+  line-height: 1.15 !important;
+  padding: 2px 4px !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
+  max-width: 100% !important;
 }
 
-/* หัววัน อา จ อ พ พฤ ศ ส */
+.moreEvents {
+  font-size: 8px !important;
+  line-height: 1 !important;
+}
+
 .dow div {
-  padding: 7px 4px !important;
-  font-size: 11px !important;
+  padding: 6px 2px !important;
+  font-size: 10px !important;
 }
 
-/* มือถือ */
-@media (max-width: 820px) {
-
+/* iPad */
+@media (max-width: 1100px) {
   .calendarGrid {
-    grid-auto-rows: 58px !important;
+    grid-auto-rows: 60px !important;
   }
 
   .day {
-    height: 58px !important;
-    min-height: 58px !important;
+    height: 60px !important;
+    min-height: 60px !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 820px) {
+  .calendarGrid {
+    grid-auto-rows: 52px !important;
+  }
+
+  .day {
+    height: 52px !important;
+    min-height: 52px !important;
     padding: 4px !important;
   }
 
@@ -243,8 +263,6 @@
     font-size: 11px !important;
   }
 
-  /* มือถือไม่โชว์ข้อความยาว
-     เหลือเป็นจุดให้รู้ว่าวันนี้มีกิจกรรม */
   .eventChip {
     font-size: 0 !important;
     width: 7px !important;
@@ -254,9 +272,13 @@
   }
 
   .dayEvents {
-    display: flex !important;
     flex-direction: row !important;
+    flex-wrap: wrap !important;
     gap: 3px !important;
     margin-top: 5px !important;
+  }
+
+  .moreEvents {
+    font-size: 0 !important;
   }
 }
