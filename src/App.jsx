@@ -87,7 +87,10 @@ function Calendar({selectedSec,onPick}){
         const items=getItems(iso)
         return <button className={`day ${items.length?'hasItems':''}`} key={iso} onClick={()=>onPick({iso,items})}>
           <b>{d.getDate()}</b>
-          <div className="dayEvents">{items.slice(0,3).map((x,j)=><span className={`eventChip ${x.type}`} key={j}>{x.time?`${x.time} · `:''}{x.title}</span>)}</div>
+          <div className="dayEvents">
+            {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type}`} key={j}>{x.title}</span>)}
+            {items.length>2&&<small className="moreEvents">+{items.length-2} รายการ</small>}
+          </div>
         </button>
       })}
     </div>
@@ -289,7 +292,7 @@ function App(){
       </div>}
 
       {tab==='calendar'&&<div>
-        <div className="pageTitle rowTitle"><div><span className="eyebrow">CALENDAR</span><h2>ปฏิทินการเรียน กิจกรรม และการสอบ</h2></div>
+        <div className="pageTitle rowTitle"><div><span className="eyebrow">CALENDAR</span><h2>ปฏิทินการเรียน กิจกรรม และการสอบ</h2><p className="calendarHint">แตะวันที่เพื่อดูรายละเอียด เวลา และกิจกรรมทั้งหมด</p></div>
           <select value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">ทุก Sec</option>{[1,2,3,4,5,6].map(s=><option value={s} key={s}>Sec {s}</option>)}</select>
         </div>
         <Calendar selectedSec={filter} onPick={setPicked}/>
