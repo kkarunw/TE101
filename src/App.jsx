@@ -62,7 +62,7 @@ function Calendar({selectedSec,onPick}){
       const matchesSec=selectedSec==='all'||s[0].includes(`Sec ${selectedSec}`)||s[0]==='ทุก Sec'
       if(!matchesSec||s[3].includes('งด')) return
       const type=s[3].includes('สอบกลางภาค')?'midterm':'class'
-      arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,detail:`สัปดาห์ที่ ${w.week}: ${w.theme}`})
+      arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,secClass:(s[0].match(/Sec (\d)/)||[])[1]||'',detail:`สัปดาห์ที่ ${w.week}: ${w.theme}`})
     }))
 
     const seen=new Set()
@@ -88,7 +88,7 @@ function Calendar({selectedSec,onPick}){
         return <button className={`day ${items.length?'hasItems':''}`} key={iso} onClick={()=>onPick({iso,items})}>
           <b>{d.getDate()}</b>
           <div className="dayEvents">
-            {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type}`} key={j}>{x.title}</span>)}
+            {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type} ${x.secClass?`sec${x.secClass}`:''}`} key={j}>{x.title}</span>)}
             {items.length>2&&<small className="moreEvents">+{items.length-2} รายการ</small>}
           </div>
         </button>
@@ -120,15 +120,12 @@ function WeekModal({w,onClose}){
       <span className="eyebrow">สัปดาห์ที่ {w.week} · {w.range}</span>
       <h2>{w.theme}</h2>
       <p className="lead">{w.content}</p>
-      {w.teach?.length>0&&<section>
-        <h3>หัวข้อสำคัญ</h3>
-        <ul>{w.teach.map(x=><li key={x}>{x}</li>)}</ul>
+      {w.sessions?.length>0&&<section className="studentWeekSessions">
+        <h3>วันเรียนและกิจกรรม</h3>
+        <div className="detailEvents">{w.sessions.map((x,i)=><article key={i}>
+          <b>{x[0]} · {x[1]}</b><strong>{x[2]}</strong><p>{x[3]}</p>
+        </article>)}</div>
       </section>}
-      <section className="projectBox">
-        <h3>สิ่งที่เชื่อมโยงกับ Final Project</h3>
-        <p>{w.project}</p>
-      </section>
-      {w.clo&&<div className="cloTag">CLO {w.clo} — {clos[w.clo]}</div>}
     </div>
   </div>
 }
@@ -138,12 +135,12 @@ function SectionView({sec}){
   const rows=[]
   weeks.forEach(w=>w.sessions.forEach(s=>{
     if(s[0].includes(`Sec ${sec}`)||s[0]==='ทุก Sec'){
-      rows.push({week:w.week,date:s[1],time:s[2],title:s[3],theme:w.theme})
+      rows.push({week:w.week,date:s[1],time:s[2],title:s[3]})
     }
   }))
   specialEvents.forEach(e=>{
     if(!e.title.includes('Sec ')||e.title.includes(`Sec ${sec}`)){
-      rows.push({week:'พิเศษ',date:fmt(e.date),time:e.time,title:e.title,theme:e.detail})
+      rows.push({week:'พิเศษ',date:fmt(e.date),time:e.time,title:e.title,detail:e.detail})
     }
   })
   return <div>
@@ -155,7 +152,7 @@ function SectionView({sec}){
       {rows.map((r,i)=><article key={i}>
         <div className="rowWeek">{r.week==='พิเศษ'?'★':r.week}</div>
         <div><b>{r.date}</b><span>{r.time}</span></div>
-        <div><h3>{r.title}</h3><p>{r.theme}</p></div>
+        <div><h3>{r.title}</h3>{r.detail&&<p>{r.detail}</p>}</div>
       </article>)}
       <article className="examRow">
         <div className="rowWeek">สอบ</div>
@@ -199,11 +196,11 @@ function Project(){
     ['การนำเสนอ การสื่อสาร และการตอบคำถาม',2],
   ]
   const liveCriteria=[
-    ['Event Concept & Experience','ความชัดเจนของแนวคิดและประสบการณ์ที่เกิดขึ้นจริง',4],
-    ['Planning & Preparation','การวางแผน การเตรียมงาน และความพร้อมก่อนวันจัดงาน',4],
-    ['Operation & Execution','คุณภาพการดำเนินงานจริง การประสานงาน และการแก้ปัญหา',4],
-    ['Teamwork & Responsibility','การทำงานร่วมกัน ความรับผิดชอบ และการปฏิบัติหน้าที่',4],
-    ['Outcome & Evaluation','ผลลัพธ์ของงาน ความพึงพอใจ และการสรุปบทเรียน',4],
+    ['แนวคิดและประสบการณ์','ความชัดเจนของแนวคิดและประสบการณ์ที่ผู้เข้าร่วมได้รับ',4],
+    ['การวางแผนและเตรียมงาน','การวางแผน ความพร้อม และการเตรียมงานก่อนวันจัดจริง',4],
+    ['การดำเนินงาน','คุณภาพการจัดงาน การประสานงาน และการแก้ไขปัญหา',4],
+    ['การทำงานเป็นทีมและความรับผิดชอบ','การแบ่งหน้าที่ ความร่วมมือ และความรับผิดชอบของทีม',4],
+    ['ผลลัพธ์และการประเมินผล','ผลสำเร็จของงาน ความพึงพอใจ และการสรุปบทเรียน',4],
   ]
   const categories=[
     ['Entertainment Event','กิจกรรมบันเทิง ดนตรี การแสดง หรือกิจกรรมสร้างประสบการณ์'],
@@ -231,7 +228,7 @@ function Project(){
         <div className="phaseFacts"><span>ช่วงดำเนินการ · Week 2–6</span><span>4 ทีม / Section · จำนวนสมาชิกใกล้เคียงกัน</span></div>
         <div className="biddingDates"><b>วัน Event Bidding</b><span>Sec 5–6 · 14 ก.ย.</span><span>Sec 3–4 · 16 ก.ย.</span><span>Sec 1–2 · 18 ก.ย. 2569</span></div>
         <h3 className="miniTitle">สิ่งที่ต้องพัฒนา</h3>
-        <div className="prepTags">{['Event Objective','Target Audience','Big Idea & Concept','Event Format & Activities','Participant Experience','Venue & Environment','Communication Direction','Feasibility'].map(x=><span key={x}>{x}</span>)}</div>
+        <div className="prepTags">{['วัตถุประสงค์','กลุ่มเป้าหมาย','แนวคิดหลัก','รูปแบบและกิจกรรม','ประสบการณ์ผู้เข้าร่วม','สถานที่และบรรยากาศ','แนวทางการสื่อสาร','ความเป็นไปได้'].map(x=><span key={x}>{x}</span>)}</div>
         <h3 className="miniTitle">เกณฑ์ประเมิน</h3>
         <div className="rubricList">{biddingCriteria.map(([name,score],i)=><div key={name}><span>{String(i+1).padStart(2,'0')}</span><p>{name}</p><b>{score}</b></div>)}</div>
         <p className="phaseNote">Winning Project คือโครงการที่ได้รับเลือกให้นำไปพัฒนาต่อ คะแนนของทุกทีมประเมินจากเกณฑ์เดียวกัน</p>
@@ -241,7 +238,7 @@ function Project(){
         <div className="phaseTop"><div><span className="phaseNo">02</span><span className="eyebrow">FINAL PROJECT · 20 คะแนน</span><h2>LIVE EVENT</h2></div><b className="phaseScore">20</b></div>
         <p className="phaseLead">หลัง Bidding นักศึกษาทั้ง Section จะรวมเป็นทีมเดียว แบ่งฝ่ายตามภาระงาน และร่วมกันผลิต Public Event จริง</p>
         <div className="phaseFacts"><span>ช่วงดำเนินการ · หลัง Midterm – ก่อน Final Examination</span><span>วันจัดงานจริง · ประกาศตามความพร้อมของแต่ละโครงการ</span></div>
-        <div className="opsFlow"><b>PRE-EVENT</b><span>Planning · Team · Timeline · PR · Preparation</span><b>EVENT DAY</b><span>Setup · Registration · Operation · Coordination · Strike</span><b>POST-EVENT</b><span>Evaluation · Debrief · Lessons Learned</span></div>
+        <div className="opsFlow"><b>ก่อนวันจัดงาน</b><span>วางแผน · แบ่งหน้าที่ · กำหนดเวลา · ประชาสัมพันธ์ · เตรียมความพร้อม</span><b>วันจัดงาน</b><span>เตรียมพื้นที่ · ลงทะเบียน · ดำเนินงาน · ประสานงาน · เก็บงาน</span><b>หลังจบงาน</b><span>ประเมินผล · สรุปงาน · ถอดบทเรียน</span></div>
         <h3 className="miniTitle">เกณฑ์ประเมิน</h3>
         <div className="rubricList liveRubric">{liveCriteria.map(([name,desc,score],i)=><div key={name}><span>{String(i+1).padStart(2,'0')}</span><p><b>{name}</b><small>{desc}</small></p><strong>{score}</strong></div>)}</div>
         <p className="phaseNote">คะแนนไม่ได้พิจารณาเฉพาะผลงานวันจัดงาน แต่ครอบคลุมการวางแผน การทำงานร่วมกัน ความรับผิดชอบ การแก้สถานการณ์ และผลลัพธ์ของงาน</p>
@@ -474,7 +471,7 @@ function App(){
           <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
         </div>
 
-        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="บรรยากาศการวางแผนและผลิตงานอีเว้นท์"/><div><span>TE101 · EVENT INDUSTRY</span><b>คิด · วางแผน · ผลิต · จัดจริง</b></div></div>
+        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="บรรยากาศการวางแผนและผลิตงานอีเว้นท์"/><div><span>TE101 · EVENT INDUSTRY</span></div></div>
 
         <div className="stats">
           <article><b>15</b><span>สัปดาห์การเรียนรู้</span></article>
@@ -507,7 +504,7 @@ function App(){
       </div>}
 
       {tab==='weeks'&&<div>
-        <div className="pageTitle"><span className="eyebrow">15 WEEKS</span><h2>แผนการเรียนตลอดภาคการศึกษา</h2><p>คลิกแต่ละสัปดาห์เพื่อดูหัวข้อสำคัญและงานที่เชื่อมโยงกับ Final Project</p></div>
+        <div className="pageTitle"><span className="eyebrow">15 WEEKS</span><h2>แผนการเรียนตลอดภาคการศึกษา</h2><p>คลิกแต่ละสัปดาห์เพื่อดูรายละเอียดการเรียนและกิจกรรม</p></div>
         <div className="weekGrid">{weeks.map(w=><button className="weekCard" onClick={()=>setWeek(w)} key={w.week}><span>W{w.week}</span><small>{w.range}</small><h3>{w.theme}</h3><p>{w.content}</p></button>)}</div>
       </div>}
 
