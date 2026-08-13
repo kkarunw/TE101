@@ -255,7 +255,10 @@ function LeavePage(){
           <h3>แบบฟอร์มลาเรียน TE101</h3>
           <p>สแกน QR Code หรือกดปุ่มด้านล่างเพื่อยื่นคำร้อง</p>
         </div>
-        <img src="/assets/leave-form-qr.png" alt="QR Code แบบฟอร์มลาเรียน TE101"/>
+        <img
+  src={`${import.meta.env.BASE_URL}assets/QRCODE_NOTGOOD.png`}
+  alt="QR Code แบบฟอร์มลา"
+/>
         <a href={leaveUrl} target="_blank" rel="noreferrer">เปิดแบบฟอร์มลาเรียน</a>
       </aside>
     </div>
