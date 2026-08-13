@@ -203,12 +203,12 @@ function Project(){
     ['ผลลัพธ์และการประเมินผล','ผลสำเร็จของงาน ความพึงพอใจ และการสรุปบทเรียน',4],
   ]
   const categories=[
-    ['Entertainment Event','กิจกรรมบันเทิง ดนตรี การแสดง หรือกิจกรรมสร้างประสบการณ์'],
-    ['Lifestyle & Community Event','กิจกรรมไลฟ์สไตล์ ชุมชน และ Social Gathering'],
-    ['Creative / Cultural Event','กิจกรรมสร้างสรรค์ ศิลปะ วัฒนธรรม หรือนิทรรศการ'],
-    ['Sport & Recreation Event','กิจกรรมกีฬา นันทนาการ การแข่งขัน หรือ Active Lifestyle'],
-    ['Marketing & Promotional Event','กิจกรรมส่งเสริมการตลาด Brand Activation หรือ Engagement'],
-    ['Social Impact Event','กิจกรรมเพื่อสังคม สิ่งแวดล้อม การศึกษา หรือผลกระทบเชิงบวก'],
+    ['🎃 Halloween Event','กิจกรรมธีมฮาโลวีน เช่น เกม ภารกิจ การแต่งกาย หรือกิจกรรมสร้างบรรยากาศภายในมหาวิทยาลัย'],
+    ['🎬 Mini Movie Night','กิจกรรมดูหนังขนาดเล็ก พร้อมกิจกรรมก่อนหรือหลังชมภาพยนตร์'],
+    ['🏃 Run Club','กิจกรรมวิ่งระยะสั้นภายในมหาวิทยาลัย เน้นการมีส่วนร่วม ความสนุก และการสร้าง Community'],
+    ['💃 Aerobic Party','กิจกรรมแอโรบิกหรือออกกำลังกายร่วมกัน พร้อมดนตรีและกิจกรรมสร้างสีสัน'],
+    ['🧭 Adventure Challenge','กิจกรรมเก็บด่านหรือภารกิจเป็นทีม ใช้พื้นที่ภายในมหาวิทยาลัย'],
+    ['🎲 Game & Social Day','กิจกรรมเกม การแข่งขันเบา ๆ หรือกิจกรรมสร้างปฏิสัมพันธ์ระหว่างผู้เข้าร่วม'],
   ]
   const journey=[
     ['Week 2','รับโจทย์ + แบ่งทีม'],['Week 3–5','Develop the Idea'],['Week 6','EVENT BIDDING'],
@@ -248,8 +248,9 @@ function Project(){
     <h2 className="blockTitle">Project Journey</h2>
     <div className="journeyLine">{journey.map(([a,b],i)=><article key={a}><span>{String(i+1).padStart(2,'0')}</span><small>{a}</small><b>{b}</b></article>)}</div>
 
-    <div className="categoryHead"><div><span className="eyebrow">EVENT DIRECTION</span><h2>ประเภทอีเว้นท์ที่อาจได้รับมอบหมาย</h2></div><p>ตัวอย่างเพื่อเตรียมตัวเบื้องต้น ประเภทและเงื่อนไขจริงจะประกาศพร้อมโจทย์อย่างเป็นทางการใน Week 2</p></div>
+    <div className="categoryHead"><div><span className="eyebrow">POSSIBLE EVENT BRIEFS</span><h2>ตัวอย่างโจทย์ที่อาจได้รับ</h2></div><p>แต่ละ Section จะได้รับโจทย์แตกต่างกัน โดยทุกกิจกรรมจัดภายในมหาวิทยาลัยหอการค้าไทย เข้าร่วมฟรี และไม่มีการจำหน่ายสินค้า</p></div>
     <div className="categoryGrid">{categories.map(([a,b])=><article key={a}><b>{a}</b><p>{b}</p></article>)}</div>
+    <div className="eventFreeNote"><b>PUBLIC EVENT · FREE ENTRY</b><span>เน้นการออกแบบประสบการณ์ การมีส่วนร่วม และการบริหารงานอีเว้นท์ โดยไม่มีกิจกรรมซื้อขายหรือรับ–จ่ายเงินจากผู้เข้าร่วม</span></div>
   </div>
 }
 
@@ -393,7 +394,7 @@ function CourseInfo(){
         <div className="briefIntro">
           <b>โจทย์</b>
           <p>พัฒนาแนวคิด Public Event ที่สามารถเกิดขึ้นได้จริงภายใต้ข้อจำกัดของเวลา สถานที่ ทรัพยากร และบริบทของมหาวิทยาลัย พร้อมนำเสนอเพื่อแข่งขันภายใน Section</p>
-          <div className="briefNote">Winning Project ได้ 10/10 · ทีมอื่นประเมินตามเกณฑ์ด้านล่าง</div>
+          <div className="briefNote">ทุกทีมประเมินตามเกณฑ์เดียวกัน · Winning Project คือโครงการที่ได้รับเลือกให้นำไปพัฒนาต่อ</div>
         </div>
         <div className="criteriaList">{midtermCriteria.map(([name,score,desc],i)=><article key={name}>
           <span className="criteriaNo">{String(i+1).padStart(2,'0')}</span>
@@ -471,7 +472,7 @@ function App(){
           <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
         </div>
 
-        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="บรรยากาศการวางแผนและผลิตงานอีเว้นท์"/><div><span>TE101 · EVENT INDUSTRY</span></div></div>
+        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="TE101 อุตสาหกรรมอีเว้นท์ มหาวิทยาลัยหอการค้าไทย"/></div>
 
         <div className="stats">
           <article><b>15</b><span>สัปดาห์การเรียนรู้</span></article>
