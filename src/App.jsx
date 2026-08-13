@@ -218,6 +218,50 @@ function Project(){
   </div>
 }
 
+
+function LeavePage(){
+  const leaveUrl='https://forms.cloud.microsoft/r/4SkQsht4Tq'
+  return <div>
+    <div className="pageTitle">
+      <span className="eyebrow">LEAVE REQUEST</span>
+      <h2>การลาเรียน</h2>
+      <p>กรณีมีความจำเป็นต้องขาดเรียน ให้ยื่นคำร้องผ่านแบบฟอร์มของรายวิชา พร้อมแนบหลักฐานตามประเภทการลา</p>
+    </div>
+
+    <div className="leaveLayout">
+      <section className="leaveRules">
+        <article>
+          <span className="leaveType sick">ลาป่วย</span>
+          <h3>ต้องมีใบรับรองแพทย์เท่านั้น</h3>
+          <p>กรุณาแนบใบรับรองแพทย์ที่สามารถตรวจสอบได้ประกอบการยื่นคำร้อง</p>
+        </article>
+
+        <article>
+          <span className="leaveType personal">ลากิจ</span>
+          <h3>ต้องมีหลักฐานที่เป็นทางราชการ หรือมีลายเซ็นรับรองกำกับ</h3>
+          <p>การลาไปทำงาน การลาที่ไม่มีหลักฐาน หรือการลาที่ไม่มีเหตุผลอันสมควร จะไม่ได้รับการรับรอง</p>
+        </article>
+
+        <article className="leaveScore">
+          <span className="leaveType approved">เมื่อการลาได้รับการอนุมัติ</span>
+          <h3>คะแนนกิจกรรมของคาบเรียนนั้นจะได้รับเทียบเท่ากับเพื่อนที่มาเรียน</h3>
+          <p>ทั้งนี้ การยื่นแบบฟอร์มไม่ได้หมายความว่าการลาจะได้รับการอนุมัติโดยอัตโนมัติ ผู้สอนจะพิจารณาจากเหตุผลและหลักฐานประกอบ</p>
+        </article>
+      </section>
+
+      <aside className="leaveFormCard">
+        <div>
+          <span className="eyebrow">MICROSOFT FORMS</span>
+          <h3>แบบฟอร์มลาเรียน TE101</h3>
+          <p>สแกน QR Code หรือกดปุ่มด้านล่างเพื่อยื่นคำร้อง</p>
+        </div>
+        <img src="/assets/leave-form-qr.png" alt="QR Code แบบฟอร์มลาเรียน TE101"/>
+        <a href={leaveUrl} target="_blank" rel="noreferrer">เปิดแบบฟอร์มลาเรียน</a>
+      </aside>
+    </div>
+  </div>
+}
+
 function CourseInfo(){
   return <div>
     <div className="courseHero">
@@ -247,6 +291,7 @@ function App(){
     ['sections','ตารางแต่ละ Sec'],
     ['project','Final Project'],
     ['assessment','คะแนนและการสอบ'],
+    ['leave','การลาเรียน'],
     ['course','ข้อมูลรายวิชา'],
   ]
 
@@ -310,6 +355,7 @@ function App(){
 
       {tab==='project'&&<Project/>}
       {tab==='assessment'&&<Assessment/>}
+      {tab==='leave'&&<LeavePage/>}
       {tab==='course'&&<CourseInfo/>}
 
       <WeekModal w={week} onClose={()=>setWeek(null)}/>

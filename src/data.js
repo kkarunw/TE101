@@ -24,9 +24,9 @@ export const clos = {
 }
 
 export const assessment = [
-  ['Midterm Project',10],
+  ['Event Bidding (Midterm Project)',10],
   ['ความสนใจและการเข้าเรียน',10],
-  ['งานมอบหมาย (เดี่ยว)',15],
+  ['งานมอบหมายรายบุคคล',15],
   ['Quiz (3 รอบ)',15],
   ['Final Project',20],
   ['Final Exam',30],
