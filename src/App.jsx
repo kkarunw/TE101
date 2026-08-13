@@ -309,7 +309,10 @@ function CourseInfo(){
         </div>
       </div>
       <div className="introHeroPhoto">
-        <img src="/assets/instructor.png" alt="อาจารย์ กรัณย์ วรวิทย์วรรณ"/>
+        <img
+  src={`${import.meta.env.BASE_URL}assets/karun_worrawitwan.png`}
+  alt="อาจารย์ กรัณย์ วรวิทย์วรรณ"
+/>
       </div>
     </section>
 
