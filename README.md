@@ -1,0 +1,39 @@
+# TE101 Student Hub
+
+เว็บแอปสำหรับนักศึกษารายวิชา **TE101 อุตสาหกรรมอีเว้นท์** ภาคต้น ปีการศึกษา 2569
+
+## ข้อมูลที่แสดง
+- หน้าหลักและกิจกรรมสำคัญ
+- ปฏิทินการเรียน กิจกรรม Guest Speaker, IMPACT และวันสอบ
+- แผนการเรียน 15 สัปดาห์
+- ตารางเรียนแยก Sec 1–6
+- Final Project และขั้นตอน Event Bidding
+- เกณฑ์คะแนน การเข้าเรียน และวันสอบปลายภาค
+- คำอธิบายรายวิชาและ CLO
+
+> เวอร์ชันนักศึกษา **ไม่มี** ข้อมูลบริหารงบประมาณภายใน, Cash Flow, เงินสนับสนุน, ข้อมูลใบเสร็จ/หัวบิล, บันทึกส่วนตัวของผู้สอน หรือ Teaching Console
+
+## เปิดในเครื่อง
+ต้องติดตั้ง Node.js ก่อน จากนั้นเปิด Terminal ในโฟลเดอร์นี้แล้วรัน:
+
+```bash
+npm install
+npm run dev
+```
+
+เปิด URL ที่ Terminal แสดง เช่น `http://localhost:5173/`
+
+## นำขึ้น GitHub
+1. สร้าง Repository ใหม่ เช่น `te101-student-hub`
+2. อัปโหลดไฟล์ทั้งหมดในโฟลเดอร์นี้ขึ้น Repository โดยให้ `package.json` อยู่ที่หน้าแรกของ Repository
+3. ไปที่ **Settings → Pages**
+4. ที่ **Build and deployment → Source** เลือก **GitHub Actions**
+5. Push เข้า branch `main`
+6. เปิดแท็บ **Actions** และรอ workflow `Deploy TE101 Student Hub to GitHub Pages` ทำงานสำเร็จ
+7. กลับไปที่ **Settings → Pages** จะเห็น URL ของเว็บ
+
+ไฟล์ `.github/workflows/deploy-pages.yml` เตรียมไว้ให้แล้ว
+
+## วันสอบ
+- สอบกลางภาค: รายวิชา TE101 ไม่มีการสอบกลางภาค
+- สอบปลายภาค: **3 ธันวาคม 2569 เวลา 13.00–16.00 น.**
