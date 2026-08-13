@@ -191,33 +191,70 @@ function Assessment(){
 }
 
 function Project(){
-  const phases=[
-    ['Week 2','รับโจทย์และแบ่งทีม Bidding','เริ่มจากวัตถุประสงค์ กลุ่มเป้าหมาย และแนวคิดหลัก'],
-    ['Week 3–5','พัฒนาแนวคิด','พัฒนากิจกรรม กำหนดการ ประสบการณ์ สถานที่ และความเป็นไปได้'],
-    ['Week 6','Event Bidding','นำเสนอ Proposal และคัดเลือก 1 Winning Project ต่อ Section'],
-    ['หลัง Midterm','Project Kick-off','รวมทั้ง Section เป็นทีมเดียว แบ่งตำแหน่งและเริ่มผลิตงาน'],
-    ['ปลาย ต.ค.–ต้น พ.ย.','Live Event','ดำเนินการจัด Public Event จริงตามวันของแต่ละโครงการ'],
-    ['หลังงาน','Debrief & Evaluation','สรุปผล ปัญหา บทเรียน และประเมินประสบการณ์ผู้เข้าร่วม']
+  const biddingCriteria=[
+    ['วัตถุประสงค์และความเข้าใจกลุ่มเป้าหมาย',2],
+    ['แนวคิดหลัก ความสร้างสรรค์ และความแตกต่าง',2],
+    ['การออกแบบกิจกรรมและประสบการณ์ผู้เข้าร่วม',2],
+    ['ความเป็นไปได้และความเหมาะสมในการนำไปจัดจริง',2],
+    ['การนำเสนอ การสื่อสาร และการตอบคำถาม',2],
   ]
-  const deliver=[
-    'ชื่อและแนวคิดหลักของงาน','วัตถุประสงค์และกลุ่มเป้าหมาย','รูปแบบกิจกรรมและประสบการณ์ผู้เข้าร่วม',
-    'สถานที่และความเป็นไปได้ของโครงการ','กำหนดการกิจกรรมเบื้องต้น','แผนประชาสัมพันธ์เบื้องต้น',
-    'อุปกรณ์และทรัพยากรที่ต้องใช้'
+  const liveCriteria=[
+    ['Event Concept & Experience','ความชัดเจนของแนวคิดและประสบการณ์ที่เกิดขึ้นจริง',4],
+    ['Planning & Preparation','การวางแผน การเตรียมงาน และความพร้อมก่อนวันจัดงาน',4],
+    ['Operation & Execution','คุณภาพการดำเนินงานจริง การประสานงาน และการแก้ปัญหา',4],
+    ['Teamwork & Responsibility','การทำงานร่วมกัน ความรับผิดชอบ และการปฏิบัติหน้าที่',4],
+    ['Outcome & Evaluation','ผลลัพธ์ของงาน ความพึงพอใจ และการสรุปบทเรียน',4],
   ]
-  return <div>
-    <div className="projectHero">
-      <span className="eyebrow">FINAL PROJECT</span>
-      <h2>1 Section = 1 Public Event</h2>
-      <p>นักศึกษาจะเริ่มจากการคิดและแข่งขันนำเสนอแนวคิดภายใน Section ก่อนคัดเลือก 1 โครงการเพื่อร่วมกันพัฒนาและจัดขึ้นจริง</p>
+  const categories=[
+    ['Entertainment Event','กิจกรรมบันเทิง ดนตรี การแสดง หรือกิจกรรมสร้างประสบการณ์'],
+    ['Lifestyle & Community Event','กิจกรรมไลฟ์สไตล์ ชุมชน และ Social Gathering'],
+    ['Creative / Cultural Event','กิจกรรมสร้างสรรค์ ศิลปะ วัฒนธรรม หรือนิทรรศการ'],
+    ['Sport & Recreation Event','กิจกรรมกีฬา นันทนาการ การแข่งขัน หรือ Active Lifestyle'],
+    ['Marketing & Promotional Event','กิจกรรมส่งเสริมการตลาด Brand Activation หรือ Engagement'],
+    ['Social Impact Event','กิจกรรมเพื่อสังคม สิ่งแวดล้อม การศึกษา หรือผลกระทบเชิงบวก'],
+  ]
+  const journey=[
+    ['Week 2','รับโจทย์ + แบ่งทีม'],['Week 3–5','Develop the Idea'],['Week 6','EVENT BIDDING'],
+    ['After Midterm','รวม Section + Project Kick-off'],['Live Event','จัดงานจริง'],['Post-event','Debrief + Evaluation']
+  ]
+  return <div className="projectPage">
+    <div className="projectHero projectHeroNew">
+      <div><span className="eyebrow">FINAL PROJECT</span><h2>1 Section = 1 Public Event</h2>
+      <p>Final Project มี 2 ช่วงสำคัญ — <b>Event Bidding</b> เพื่อคัดเลือกแนวคิด และ <b>Live Event</b> เพื่อพัฒนา Winning Project ให้เกิดขึ้นจริงโดยทั้ง Section</p></div>
+      <div className="projectHeroBadge"><b>2</b><span>PHASES</span></div>
     </div>
-    <h2 className="blockTitle">เส้นทางของโครงการ</h2>
-    <div className="phaseGrid">{phases.map(([a,b,c])=><article key={a}><span>{a}</span><h3>{b}</h3><p>{c}</p></article>)}</div>
-    <h2 className="blockTitle">สิ่งที่ควรมีใน Event Bidding</h2>
-    <div className="deliverGrid">{deliver.map((x,i)=><div key={x}><b>{String(i+1).padStart(2,'0')}</b><span>{x}</span></div>)}</div>
-    <div className="noteBox"><b>หมายเหตุ</b><p>รายละเอียดของวันจัดงานจริงแต่ละ Section จะประกาศเพิ่มเติมเมื่อ Winning Project และแผนการผลิตมีความพร้อม</p></div>
+
+    <div className="projectPhases">
+      <section className="phasePanel biddingPanel">
+        <div className="phaseTop"><div><span className="phaseNo">01</span><span className="eyebrow">MIDTERM PROJECT · 10 คะแนน</span><h2>EVENT BIDDING</h2></div><b className="phaseScore">10</b></div>
+        <p className="phaseLead">การแข่งขันนำเสนอแนวคิดโครงการภายใน Section ก่อนคัดเลือก 1 Winning Project เพื่อนำไปพัฒนาและจัดจริง</p>
+        <div className="phaseFacts"><span>ช่วงดำเนินการ · Week 2–6</span><span>4 ทีม / Section · จำนวนสมาชิกใกล้เคียงกัน</span></div>
+        <div className="biddingDates"><b>วัน Event Bidding</b><span>Sec 5–6 · 14 ก.ย.</span><span>Sec 3–4 · 16 ก.ย.</span><span>Sec 1–2 · 18 ก.ย. 2569</span></div>
+        <h3 className="miniTitle">สิ่งที่ต้องพัฒนา</h3>
+        <div className="prepTags">{['Event Objective','Target Audience','Big Idea & Concept','Event Format & Activities','Participant Experience','Venue & Environment','Communication Direction','Feasibility'].map(x=><span key={x}>{x}</span>)}</div>
+        <h3 className="miniTitle">เกณฑ์ประเมิน</h3>
+        <div className="rubricList">{biddingCriteria.map(([name,score],i)=><div key={name}><span>{String(i+1).padStart(2,'0')}</span><p>{name}</p><b>{score}</b></div>)}</div>
+        <p className="phaseNote">Winning Project คือโครงการที่ได้รับเลือกให้นำไปพัฒนาต่อ คะแนนของทุกทีมประเมินจากเกณฑ์เดียวกัน</p>
+      </section>
+
+      <section className="phasePanel livePanel">
+        <div className="phaseTop"><div><span className="phaseNo">02</span><span className="eyebrow">FINAL PROJECT · 20 คะแนน</span><h2>LIVE EVENT</h2></div><b className="phaseScore">20</b></div>
+        <p className="phaseLead">หลัง Bidding นักศึกษาทั้ง Section จะรวมเป็นทีมเดียว แบ่งฝ่ายตามภาระงาน และร่วมกันผลิต Public Event จริง</p>
+        <div className="phaseFacts"><span>ช่วงดำเนินการ · หลัง Midterm – ก่อน Final Examination</span><span>วันจัดงานจริง · ประกาศตามความพร้อมของแต่ละโครงการ</span></div>
+        <div className="opsFlow"><b>PRE-EVENT</b><span>Planning · Team · Timeline · PR · Preparation</span><b>EVENT DAY</b><span>Setup · Registration · Operation · Coordination · Strike</span><b>POST-EVENT</b><span>Evaluation · Debrief · Lessons Learned</span></div>
+        <h3 className="miniTitle">เกณฑ์ประเมิน</h3>
+        <div className="rubricList liveRubric">{liveCriteria.map(([name,desc,score],i)=><div key={name}><span>{String(i+1).padStart(2,'0')}</span><p><b>{name}</b><small>{desc}</small></p><strong>{score}</strong></div>)}</div>
+        <p className="phaseNote">คะแนนไม่ได้พิจารณาเฉพาะผลงานวันจัดงาน แต่ครอบคลุมการวางแผน การทำงานร่วมกัน ความรับผิดชอบ การแก้สถานการณ์ และผลลัพธ์ของงาน</p>
+      </section>
+    </div>
+
+    <h2 className="blockTitle">Project Journey</h2>
+    <div className="journeyLine">{journey.map(([a,b],i)=><article key={a}><span>{String(i+1).padStart(2,'0')}</span><small>{a}</small><b>{b}</b></article>)}</div>
+
+    <div className="categoryHead"><div><span className="eyebrow">EVENT DIRECTION</span><h2>ประเภทอีเว้นท์ที่อาจได้รับมอบหมาย</h2></div><p>ตัวอย่างเพื่อเตรียมตัวเบื้องต้น ประเภทและเงื่อนไขจริงจะประกาศพร้อมโจทย์อย่างเป็นทางการใน Week 2</p></div>
+    <div className="categoryGrid">{categories.map(([a,b])=><article key={a}><b>{a}</b><p>{b}</p></article>)}</div>
   </div>
 }
-
 
 function LeavePage(){
   const leaveUrl='https://forms.cloud.microsoft/r/4SkQsht4Tq'
@@ -436,6 +473,8 @@ function App(){
           <div><span className="eyebrow">WELCOME TO TE101</span><h2>เรียนอุตสาหกรรมอีเว้นท์ ผ่านการลงมือทำจริง</h2><p>เรียนรู้พื้นฐานอุตสาหกรรม → พัฒนาแนวคิด → Bidding → วางแผน → จัด Public Event จริง → ประเมินผล</p></div>
           <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
         </div>
+
+        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="บรรยากาศการวางแผนและผลิตงานอีเว้นท์"/><div><span>TE101 · EVENT INDUSTRY</span><b>คิด · วางแผน · ผลิต · จัดจริง</b></div></div>
 
         <div className="stats">
           <article><b>15</b><span>สัปดาห์การเรียนรู้</span></article>
