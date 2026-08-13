@@ -263,17 +263,134 @@ function LeavePage(){
 }
 
 function CourseInfo(){
-  return <div>
-    <div className="courseHero">
-      <div><span className="eyebrow">TE101</span><h2>อุตสาหกรรมอีเว้นท์</h2><p>{course.semester}</p></div>
-      <div className="courseExam"><span>สอบปลายภาค</span><b>3 ธ.ค. 2569</b><strong>13.00–16.00 น.</strong></div>
-    </div>
-    <section className="infoSection"><h3>คำอธิบายรายวิชา</h3><p>{course.description}</p></section>
-    <section className="infoSection"><h3>ผลลัพธ์การเรียนรู้ของรายวิชา (CLO)</h3><div className="cloGrid">{Object.entries(clos).map(([n,t])=><article key={n}><b>CLO {n}</b><span>{t}</span></article>)}</div></section>
-    <section className="infoSection"><h3>กิจกรรมสำคัญ</h3><div className="quickEvents">
-      <article><b>Guest Speaker</b><span>10 ก.ย. 2569 · 09.00–12.00 น.</span><p>รวม Sec 1–6</p></article>
-      <article><b>IMPACT Site Visit</b><span>20 ต.ค. 2569</span><p>Thunder Dome · Exhibition Hall 9–10 · Royal Jubilee · Portal</p></article>
-    </div></section>
+  const experience=[
+    ['การท่องเที่ยวแห่งประเทศไทย','กองสร้างสรรค์กิจกรรม'],
+    ['Dream Come Tour','Trip Planner'],
+    ['Wisdomwide','Activity Leader'],
+    ['Domestic, Inbound, Outbound','Tour Guide'],
+    ['National Institute of Development Administration','International Journal and Conferences']
+  ]
+
+  const teachingActivities=[
+    ['การเรียนการสอนแบบห้องเรียนปกติ','เรียนร่วมกันในชั้นเรียนตามตารางของแต่ละ Section'],
+    ['บรรยายประกอบสื่อ','ใช้เอกสารประกอบการสอนและ Microsoft PowerPoint'],
+    ['อภิปรายและซักถาม','แลกเปลี่ยนความคิดเห็น วิเคราะห์ตัวอย่าง และถาม–ตอบร่วมกัน'],
+    ['รายงานและการนำเสนอ','ฝึกสรุป วิเคราะห์ และสื่อสารแนวคิดอย่างเป็นระบบ'],
+    ['วีดิทัศน์และกรณีศึกษา','เรียนรู้จากตัวอย่างงานอีเว้นท์และสถานการณ์จริง'],
+    ['กิจกรรมภาคปฏิบัติ','ปฏิบัติกิจกรรมตามที่ได้รับมอบหมาย รวมถึง Final Project']
+  ]
+
+  const midtermCriteria=[
+    ['แนวคิดและความชัดเจนของงาน',2,'แนวคิดมีความน่าสนใจ สอดคล้องกับโจทย์ และอธิบายภาพของงานได้ชัดเจน'],
+    ['วัตถุประสงค์และกลุ่มเป้าหมาย',2,'กำหนดเหตุผลในการจัดงานและผู้เข้าร่วมเป้าหมายได้เหมาะสม'],
+    ['รูปแบบกิจกรรมและประสบการณ์ผู้เข้าร่วม',2,'กิจกรรมมีลำดับ มีความเชื่อมโยง และสร้างประสบการณ์ที่สัมพันธ์กับแนวคิด'],
+    ['ความเป็นไปได้ของโครงการ',2,'สถานที่ กำหนดการ ทรัพยากร และงบประมาณเบื้องต้นสามารถดำเนินการได้จริง'],
+    ['การนำเสนอและการตอบคำถาม',2,'สื่อสารกระชับ เข้าใจง่าย แบ่งบทบาทในการนำเสนอ และตอบคำถามได้มีเหตุผล']
+  ]
+
+  const finalCriteria=[
+    ['การวางแผนและการบริหารโครงการ',4,'มีแผนงาน Timeline หน้าที่รับผิดชอบ และการประสานงานที่ชัดเจน'],
+    ['การทำงานเป็นทีมและความรับผิดชอบ',4,'ปฏิบัติหน้าที่ตามตำแหน่ง ทำงานร่วมกับผู้อื่น และรับผิดชอบต่อส่วนรวม'],
+    ['การผลิตงานและการบริหารหน้างาน',4,'เตรียมสถานที่ อุปกรณ์ ทีมงาน และดำเนินกิจกรรมได้ตามแผน พร้อมแก้ไขปัญหาเฉพาะหน้า'],
+    ['ประสบการณ์ของผู้เข้าร่วมงาน',4,'กิจกรรม การสื่อสาร พื้นที่ และการบริการช่วยให้ผู้เข้าร่วมได้รับประสบการณ์ตามที่ออกแบบไว้'],
+    ['ผลลัพธ์และการประเมินหลังงาน',4,'งานบรรลุวัตถุประสงค์ มีการเก็บข้อมูล สรุปผล และสะท้อนบทเรียนเพื่อนำไปพัฒนาต่อ']
+  ]
+
+  return <div className="introPage">
+    <section className="introHero">
+      <div className="introHeroCopy">
+        <span className="eyebrow">COURSE INTRODUCTION</span>
+        <h2>TE101<br/>อุตสาหกรรมอีเว้นท์</h2>
+        <p>{course.semester}</p>
+        <div className="introMeta">
+          <span>15 สัปดาห์</span>
+          <span>6 Sections</span>
+          <span>1 Public Event / Section</span>
+        </div>
+      </div>
+      <div className="introHeroPhoto">
+        <img src="/assets/instructor.png" alt="อาจารย์ กรัณย์ วรวิทย์วรรณ"/>
+      </div>
+    </section>
+
+    <section className="instructorSection">
+      <div className="sectionLabel">ผู้สอน</div>
+      <div className="instructorGrid">
+        <div>
+          <h2>อาจารย์ กรัณย์ วรวิทย์วรรณ</h2>
+          <div className="educationList">
+            <p><b>กจ.ม.</b> การจัดการการท่องเที่ยวและบริการแบบบูรณาการ<br/><span>สถาบันบัณฑิตพัฒนบริหารศาสตร์</span></p>
+            <p><b>บธ.บ.</b> การจัดการการท่องเที่ยว<br/><span>มหาวิทยาลัยบูรพา · เกียรตินิยมอันดับ 2</span></p>
+            <p><b>International Study Program</b><br/><span>Duale Hochschule Baden-Württemberg Ravensburg, Germany</span></p>
+          </div>
+        </div>
+        <div className="experiencePanel">
+          <div className="sectionLabel">ประสบการณ์</div>
+          {experience.map(([org,role],i)=><div className="experienceItem" key={org}>
+            <span>{String(i+1).padStart(2,'0')}</span>
+            <div><b>{org}</b><p>{role}</p></div>
+          </div>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="cleanSection">
+      <div className="sectionHeading">
+        <div><span className="sectionLabel">รูปแบบการเรียน</span><h2>กิจกรรมการเรียนการสอน</h2></div>
+        <p>เรียนรู้จากเนื้อหาพื้นฐานควบคู่กับการพัฒนาและจัดงานจริงตลอดภาคการศึกษา</p>
+      </div>
+      <div className="teachingGrid">{teachingActivities.map(([a,b],i)=><article key={a}>
+        <span>{String(i+1).padStart(2,'0')}</span><h3>{a}</h3><p>{b}</p>
+      </article>)}</div>
+    </section>
+
+    <section className="cleanSection">
+      <div className="sectionHeading">
+        <div><span className="sectionLabel">MIDTERM PROJECT · 10 คะแนน</span><h2>Event Bidding</h2></div>
+        <p>แต่ละ Section แบ่งเป็น 4 ทีม จำนวนสมาชิกใกล้เคียงกัน เพื่อพัฒนาและนำเสนอ Event Proposal โดยคัดเลือก 1 Winning Project ไปจัดจริง</p>
+      </div>
+      <div className="projectBrief">
+        <div className="briefIntro">
+          <b>โจทย์</b>
+          <p>พัฒนาแนวคิด Public Event ที่สามารถเกิดขึ้นได้จริงภายใต้ข้อจำกัดของเวลา สถานที่ ทรัพยากร และบริบทของมหาวิทยาลัย พร้อมนำเสนอเพื่อแข่งขันภายใน Section</p>
+          <div className="briefNote">Winning Project ได้ 10/10 · ทีมอื่นประเมินตามเกณฑ์ด้านล่าง</div>
+        </div>
+        <div className="criteriaList">{midtermCriteria.map(([name,score,desc],i)=><article key={name}>
+          <span className="criteriaNo">{String(i+1).padStart(2,'0')}</span>
+          <div><h3>{name}</h3><p>{desc}</p></div>
+          <b>{score}</b>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="cleanSection">
+      <div className="sectionHeading">
+        <div><span className="sectionLabel">FINAL PROJECT · 20 คะแนน</span><h2>Live Public Event</h2></div>
+        <p>หลังการ Bidding นักศึกษาทั้ง Section จะรวมเป็นทีมเดียว แบ่งตำแหน่งตามภาระงาน และร่วมกันผลิต Winning Project ให้เกิดขึ้นจริง</p>
+      </div>
+      <div className="projectBrief">
+        <div className="briefIntro finalBrief">
+          <b>โจทย์</b>
+          <p>วางแผน ผลิต ดำเนินงาน และประเมินผล Public Event จำนวน 1 งานต่อ Section โดยนำองค์ความรู้จากรายวิชามาประยุกต์ใช้กับสถานการณ์จริง</p>
+          <div className="briefNote">ประเมินทั้งกระบวนการทำงานและผลลัพธ์ของงาน ไม่ได้พิจารณาเฉพาะวันจัดงาน</div>
+        </div>
+        <div className="criteriaList">{finalCriteria.map(([name,score,desc],i)=><article key={name}>
+          <span className="criteriaNo">{String(i+1).padStart(2,'0')}</span>
+          <div><h3>{name}</h3><p>{desc}</p></div>
+          <b>{score}</b>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="cleanSection compactInfo">
+      <div className="sectionHeading">
+        <div><span className="sectionLabel">COURSE INFORMATION</span><h2>เกี่ยวกับรายวิชา</h2></div>
+      </div>
+      <div className="courseInfoGrid">
+        <article><h3>คำอธิบายรายวิชา</h3><p>{course.description}</p></article>
+        <article><h3>ผลลัพธ์การเรียนรู้ของรายวิชา</h3><div className="minimalClo">{Object.entries(clos).map(([n,t])=><div key={n}><b>CLO {n}</b><span>{t}</span></div>)}</div></article>
+      </div>
+    </section>
   </div>
 }
 
@@ -292,7 +409,7 @@ function App(){
     ['project','Final Project'],
     ['assessment','คะแนนและการสอบ'],
     ['leave','การลาเรียน'],
-    ['course','ข้อมูลรายวิชา'],
+    ['course','แนะนำรายวิชา'],
   ]
 
   return <div className="app">
@@ -330,6 +447,7 @@ function App(){
         </div>
 
         <div className="homeActions">
+          <button onClick={()=>setTab('course')}><b>แนะนำรายวิชา</b><span>ผู้สอน รูปแบบการเรียน และเกณฑ์ Project</span></button>
           <button onClick={()=>setTab('calendar')}><b>เปิดปฏิทิน</b><span>ดูวันเรียน กิจกรรม และวันสอบ</span></button>
           <button onClick={()=>setTab('project')}><b>ดู Final Project</b><span>ดู Timeline และสิ่งที่ต้องเตรียมสำหรับ Bidding</span></button>
           <button onClick={()=>setTab('sections')}><b>ดู Sec ของตัวเอง</b><span>เลือก Sec เพื่อดูวัน เวลา ห้อง และแผนรายสัปดาห์</span></button>
