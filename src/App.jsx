@@ -20,6 +20,15 @@ const classGroups=[
   {sec:6,label:'กลุ่มเรียนที่ 6',qr:'TE101-sec6.jpg',teamCode:'nct3nvt'},
 ]
 
+
+const practiceRange={
+  start:'2026-10-26',
+  end:'2026-11-08',
+  title:'ความพร้อมก่อนวันจัดงานและการทดลองดำเนินงาน และการจัดกิจกรรมอีเว้นท์จริง',
+  detail:'ช่วงปฏิบัติงานของทุก Section ระหว่างวันที่ 26 ตุลาคม – 8 พฤศจิกายน 2569',
+  type:'practice'
+}
+
 const examEvent={
   date:'2026-12-03',
   time:'13.00–16.00 น.',
@@ -46,6 +55,7 @@ function Calendar({selectedSec,onPick}){
 
   const getItems=(iso)=>{
     const arr=[]
+    const inPracticeRange=iso>=practiceRange.start&&iso<=practiceRange.end
 
     // Special course activities
     specialEvents.forEach(e=>{
@@ -65,14 +75,17 @@ function Calendar({selectedSec,onPick}){
     })
 
     // Normal classes / section-specific sessions
-    weeks.forEach(w=>w.sessions.forEach(s=>{
-      const date=parseSessionDate(s[1])
-      if(date!==iso) return
-      const matchesSec=selectedSec==='all'||s[0].includes(`Sec ${selectedSec}`)||s[0]==='ทุก Sec'
-      if(!matchesSec||s[3].includes('งด')) return
-      const type=s[3].includes('สอบกลางภาค')?'midterm':'class'
-      arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,secClass:(s[0].match(/Sec (\d)/)||[])[1]||'',detail:`${w.theme} · ${w.range}`})
-    }))
+    // During 26 Oct–8 Nov, student view uses one continuous practice range instead.
+    if(!inPracticeRange){
+      weeks.forEach(w=>w.sessions.forEach(s=>{
+        const date=parseSessionDate(s[1])
+        if(date!==iso) return
+        const matchesSec=selectedSec==='all'||s[0].includes(`Sec ${selectedSec}`)||s[0]==='ทุก Sec'
+        if(!matchesSec||s[3].includes('งด')) return
+        const type=s[3].includes('สอบกลางภาค')?'midterm':'class'
+        arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,secClass:(s[0].match(/Sec (\d)/)||[])[1]||'',detail:`${w.theme} · ${w.range}`})
+      }))
+    }
 
     const seen=new Set()
     return arr.filter(x=>{
@@ -80,6 +93,14 @@ function Calendar({selectedSec,onPick}){
       if(seen.has(k)) return false
       seen.add(k); return true
     })
+  }
+
+
+  const practiceSegment=(iso)=>{
+    if(iso<practiceRange.start||iso>practiceRange.end) return ''
+    if(iso===practiceRange.start) return 'start'
+    if(iso===practiceRange.end) return 'end'
+    return 'middle'
   }
 
   return <div className="calendar">
@@ -94,8 +115,15 @@ function Calendar({selectedSec,onPick}){
         if(!d) return <div className="day empty" key={`e${i}`}/>
         const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
         const items=getItems(iso)
-        return <button className={`day ${items.length?'hasItems':''}`} key={iso} onClick={()=>onPick({iso,items})}>
+        const practice=practiceSegment(iso)
+        const pickedItems=practice
+          ? [{title:practiceRange.title,time:'',type:'practice',detail:practiceRange.detail},...items]
+          : items
+        return <button className={`day ${pickedItems.length?'hasItems':''} ${practice?'practiceDay':''}`} key={iso} onClick={()=>onPick({iso,items:pickedItems})}>
           <b>{d.getDate()}</b>
+          {practice&&<div className={`practiceRangeBar ${practice}`}>
+            {practice==='start'&&<span>{practiceRange.title}</span>}
+          </div>}
           <div className="dayEvents">
             {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type} ${x.secClass?`sec${x.secClass}`:''}`} key={j}>{x.title}</span>)}
             {items.length>2&&<small className="moreEvents">+{items.length-2} รายการ</small>}

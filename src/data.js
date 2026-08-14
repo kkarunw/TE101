@@ -346,12 +346,11 @@ export const specialEvents = [
   {date:'2026-09-10', time:'09.00–12.00', title:'Guest Speaker Day', type:'guest', detail:'รวม Sec 1–6; หัวข้อประสบการณ์ทำงาน เส้นทางอาชีพ รับ Brief, Pitch, Client, Production และ Career Inspiration'},
   {date:'2026-09-28', time:'', title:'เริ่มสัปดาห์สอบกลางภาค', type:'midterm', detail:'28 ก.ย.–2 ต.ค. 2569 — TE101 ไม่มีสอบกลางภาค'},
   {date:'2026-10-20', time:'ตามกำหนดการดูงาน', title:'IMPACT Site Visit', type:'visit', detail:'Thunder Dome → Exhibition Hall 9–10 → Royal Jubilee → Portal'},
-  {date:'2026-10-30', time:'17.30–20.00', title:'Live Event Sec 1 (กำหนดการเบื้องต้น)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
-  {date:'2026-10-31', time:'17.00–20.00', title:'Live Event Sec 2 (แนะนำ)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
-  {date:'2026-11-02', time:'17.30–20.00', title:'Live Event Sec 5 (แนะนำ)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
-  {date:'2026-11-04', time:'17.30–20.00', title:'Live Event Sec 6 (แนะนำ)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
-  {date:'2026-11-06', time:'17.30–20.00', title:'Live Event Sec 3 (แนะนำ)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
-  {date:'2026-11-08', time:'16.00–19.00', title:'Live Event Sec 4 (แนะนำ)', type:'live', detail:'วันและเวลาสามารถปรับได้ภายหลัง Event Bidding ตามแนวคิด รูปแบบ และสถานที่ของกิจกรรม'},
+
+
+
+
+
 ]
 
 export const projectPhases = [
