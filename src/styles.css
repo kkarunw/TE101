@@ -438,3 +438,85 @@ header h1{font-size:30px;line-height:1.1;margin:3px 0 0;letter-spacing:-.035em}
   .calendarNote{display:block}
   .calendarNote span{display:block;margin-top:3px}
 }
+
+.scoreConvert{
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:12px;
+  background:#f5f3ff;
+  border:1px solid #e6e1ff;
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+  font-size:12px;
+}
+.scoreConvert b{color:#5f50c8}
+.scoreConvert span{color:#68656f}
+@media(max-width:650px){
+  .scoreConvert{display:block}
+  .scoreConvert span{display:block;margin-top:4px}
+}
+
+
+/* ===== Event Bidding deliverables ===== */
+.biddingDeliverables{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:10px 0 14px;
+}
+.biddingDeliverables article{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:9px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px solid #e7e4ef;
+  border-radius:12px;
+  background:#fbfaff;
+}
+.biddingDeliverables article>span{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border-radius:8px;
+  background:#eee9ff;
+  color:#5f50c8;
+  font-size:9px;
+  font-weight:900;
+}
+.biddingDeliverables b{
+  display:block;
+  margin-bottom:3px;
+  font-size:12px;
+}
+.biddingDeliverables p{
+  margin:0;
+  color:#77717f;
+  font-size:10px;
+  line-height:1.45;
+}
+.presentationFormatNote{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  margin-bottom:14px;
+  padding:10px 12px;
+  border-radius:11px;
+  background:#f5f3ff;
+  border:1px solid #e6e1ff;
+  font-size:11px;
+}
+.presentationFormatNote b{color:#5f50c8}
+.presentationFormatNote span{color:#68656f}
+
+@media(max-width:800px){
+  .biddingDeliverables{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .presentationFormatNote{display:block}
+  .presentationFormatNote span{display:block;margin-top:3px}
+}
