@@ -11,6 +11,15 @@ const months=[
 const weekdays=['อา','จ','อ','พ','พฤ','ศ','ส']
 const monthMap={'ส.ค.':8,'ก.ย.':9,'ต.ค.':10,'พ.ย.':11,'ธ.ค.':12}
 
+const classGroups=[
+  {sec:1,label:'กลุ่มเรียนที่ 1',qr:'TE101-sec1.jpg',teamCode:'35hrkf9'},
+  {sec:2,label:'กลุ่มเรียนที่ 2',qr:'TE101-sec2.jpg',teamCode:'hj7ysoc'},
+  {sec:3,label:'กลุ่มเรียนที่ 3',qr:'TE101-sec3.jpg',teamCode:'kx8uc2x'},
+  {sec:4,label:'กลุ่มเรียนที่ 4',qr:'TE101-sec4.jpg',teamCode:'f91th7r'},
+  {sec:5,label:'กลุ่มเรียนที่ 5',qr:'TE101-sec5.jpg',teamCode:'9d96e6d'},
+  {sec:6,label:'กลุ่มเรียนที่ 6',qr:'TE101-sec6.jpg',teamCode:'nct3nvt'},
+]
+
 const examEvent={
   date:'2026-12-03',
   time:'13.00–16.00 น.',
@@ -300,6 +309,73 @@ function LeavePage(){
   </div>
 }
 
+
+function ClassChannels(){
+  const [copied,setCopied]=useState(null)
+
+  const copyCode=async(code,sec)=>{
+    try{
+      await navigator.clipboard.writeText(code)
+      setCopied(sec)
+      setTimeout(()=>setCopied(null),1600)
+    }catch{
+      setCopied(null)
+    }
+  }
+
+  return <div className="channelsPage">
+    <div className="pageTitle">
+      <span className="eyebrow">CLASS CHANNELS</span>
+      <h2>LINE กลุ่มเรียน และ Microsoft Teams</h2>
+      <p>เลือกเฉพาะกลุ่มเรียนของตนเอง สำหรับติดตามประกาศ ดาวน์โหลดเอกสาร และส่งงานของรายวิชา</p>
+    </div>
+
+    <div className="channelNotice">
+      <b>กรุณาเข้าร่วมเฉพาะกลุ่มเรียนของ Section ตนเอง</b>
+      <span>LINE ใช้สำหรับการสื่อสารและประกาศรวดเร็ว ส่วน Microsoft Teams ใช้สำหรับเอกสารประกอบการเรียน งานมอบหมาย และการส่งงาน</span>
+    </div>
+
+    <div className="channelGrid">
+      {classGroups.map(g=><article className={`channelCard channelSec${g.sec}`} key={g.sec}>
+        <div className="channelTop">
+          <div>
+            <span className="channelSecLabel">SECTION {g.sec}</span>
+            <h3>{g.label}</h3>
+          </div>
+          <span className="channelNumber">{String(g.sec).padStart(2,'0')}</span>
+        </div>
+
+        <div className="channelBody">
+          <section className="linePanel">
+            <span className="channelMiniLabel">LINE กลุ่มเรียน</span>
+            <div className="qrFrame">
+              <img
+                src={`${import.meta.env.BASE_URL}assets/${g.qr}`}
+                alt={`QR Code LINE ${g.label}`}
+              />
+            </div>
+            <p>สแกน QR Code เพื่อเข้าร่วม LINE กลุ่มเรียน</p>
+          </section>
+
+          <section className="teamsPanel">
+            <span className="channelMiniLabel">MICROSOFT TEAMS</span>
+            <p className="teamsHint">Team Code</p>
+            <button className="teamCode" onClick={()=>copyCode(g.teamCode,g.sec)} title="กดเพื่อคัดลอกรหัส">
+              {g.teamCode}
+            </button>
+            <small>{copied===g.sec?'คัดลอกรหัสแล้ว ✓':'กดที่รหัสเพื่อคัดลอก'}</small>
+            <div className="teamsUses">
+              <span>ดาวน์โหลดเอกสาร</span>
+              <span>รับโจทย์และประกาศ</span>
+              <span>ส่งงานที่ได้รับมอบหมาย</span>
+            </div>
+          </section>
+        </div>
+      </article>)}
+    </div>
+  </div>
+}
+
 function CourseInfo(){
   const experience=[
     ['การท่องเที่ยวแห่งประเทศไทย','กองสร้างสรรค์กิจกรรม'],
@@ -450,6 +526,7 @@ function App(){
     ['project','Final Project'],
     ['assessment','คะแนนและการสอบ'],
     ['leave','การลาเรียน'],
+    ['channels','LINE / Teams'],
     ['course','แนะนำรายวิชา'],
   ]
 
@@ -494,6 +571,7 @@ function App(){
           <button onClick={()=>setTab('calendar')}><b>เปิดปฏิทิน</b><span>ดูวันเรียน กิจกรรม และวันสอบ</span></button>
           <button onClick={()=>setTab('project')}><b>ดู Final Project</b><span>ดู Timeline และสิ่งที่ต้องเตรียมสำหรับ Bidding</span></button>
           <button onClick={()=>setTab('sections')}><b>ดู Sec ของตัวเอง</b><span>เลือก Sec เพื่อดูวัน เวลา ห้อง และแผนรายสัปดาห์</span></button>
+          <button onClick={()=>setTab('channels')}><b>เข้า LINE / Teams</b><span>QR Code LINE และ Team Code ของแต่ละกลุ่มเรียน</span></button>
         </div>
       </div>}
 
@@ -502,6 +580,10 @@ function App(){
           <select value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">ทุก Sec</option>{[1,2,3,4,5,6].map(s=><option value={s} key={s}>Sec {s}</option>)}</select>
         </div>
         <Calendar selectedSec={filter} onPick={setPicked}/>
+        <div className="calendarNote">
+          <b>หมายเหตุ</b>
+          <span>ตารางเรียน กิจกรรม และกำหนดการต่าง ๆ อาจมีการเปลี่ยนแปลงตามความเหมาะสม โดยจะแจ้งให้นักศึกษาทราบล่วงหน้าผ่านช่องทางของรายวิชา</span>
+        </div>
       </div>}
 
       {tab==='weeks'&&<div>
@@ -517,6 +599,7 @@ function App(){
       {tab==='project'&&<Project/>}
       {tab==='assessment'&&<Assessment/>}
       {tab==='leave'&&<LeavePage/>}
+      {tab==='channels'&&<ClassChannels/>}
       {tab==='course'&&<CourseInfo/>}
 
       <WeekModal w={week} onClose={()=>setWeek(null)}/>
