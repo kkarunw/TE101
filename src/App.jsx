@@ -71,7 +71,7 @@ function Calendar({selectedSec,onPick}){
       const matchesSec=selectedSec==='all'||s[0].includes(`Sec ${selectedSec}`)||s[0]==='ทุก Sec'
       if(!matchesSec||s[3].includes('งด')) return
       const type=s[3].includes('สอบกลางภาค')?'midterm':'class'
-      arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,secClass:(s[0].match(/Sec (\d)/)||[])[1]||'',detail:`สัปดาห์ที่ ${w.week}: ${w.theme}`})
+      arr.push({title:`${s[0]} · ${s[3]}`,time:s[2],type,secClass:(s[0].match(/Sec (\d)/)||[])[1]||'',detail:`${w.theme} · ${w.range}`})
     }))
 
     const seen=new Set()
@@ -126,7 +126,7 @@ function WeekModal({w,onClose}){
   return <div className="modalBg" onClick={onClose}>
     <div className="modal weekModal" onClick={e=>e.stopPropagation()}>
       <button className="close" onClick={onClose}>×</button>
-      <span className="eyebrow">สัปดาห์ที่ {w.week} · {w.range}</span>
+      <span className="eyebrow">{w.week===7?'สัปดาห์สอบกลางภาค':`บทเรียนสัปดาห์ที่ ${w.week}`} · {w.range}</span>
       <h2>{w.theme}</h2>
       <p className="lead">{w.content}</p>
       {w.sessions?.length>0&&<section className="studentWeekSessions">
