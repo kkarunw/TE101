@@ -558,12 +558,24 @@ function App(){
       </header>
 
       {tab==='home'&&<div>
-        <div className="hero">
-          <div><span className="eyebrow">WELCOME TO TE101</span><h2>เรียนอุตสาหกรรมอีเว้นท์ ผ่านการลงมือทำจริง</h2><p>เรียนรู้พื้นฐานอุตสาหกรรม → พัฒนาแนวคิด → Bidding → วางแผน → จัด Public Event จริง → ประเมินผล</p></div>
-          <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
+        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="TE101 อุตสาหกรรมอีเว้นท์"/><div><span>TE101 · EVENT INDUSTRY</span></div></div>
+
+        <div className="homeActions">
+          <button onClick={()=>setTab('course')}><b>แนะนำรายวิชา</b><span>ผู้สอน รูปแบบการเรียน และเกณฑ์ Project</span></button>
+          <button onClick={()=>setTab('calendar')}><b>เปิดปฏิทิน</b><span>ดูวันเรียน กิจกรรม และวันสอบ</span></button>
+          <button onClick={()=>setTab('project')}><b>ดู Final Project</b><span>ดู Timeline และสิ่งที่ต้องเตรียมสำหรับ Bidding</span></button>
+          <button onClick={()=>setTab('sections')}><b>ดู Sec ของตัวเอง</b><span>เลือก Sec เพื่อดูวัน เวลา ห้อง และแผนรายสัปดาห์</span></button>
+          <button onClick={()=>setTab('channels')}><b>เข้า LINE / Teams</b><span>QR Code LINE และ Team Code ของแต่ละกลุ่มเรียน</span></button>
         </div>
 
-        <div className="courseCover"><img src={`${import.meta.env.BASE_URL}assets/course_cover.png`} alt="TE101 อุตสาหกรรมอีเว้นท์ มหาวิทยาลัยหอการค้าไทย"/></div>
+        <div className="hero">
+          <div>
+            <span className="eyebrow">TE101 · COURSE OVERVIEW</span>
+            <h2>อุตสาหกรรมอีเว้นท์</h2>
+            <p>ศึกษาพื้นฐานอุตสาหกรรมอีเว้นท์ ตั้งแต่การพัฒนาแนวคิด การออกแบบประสบการณ์ การดำเนินงาน จนถึงการประเมินผลและการประยุกต์ใช้ในการจัดงานจริง</p>
+          </div>
+          <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
+        </div>
 
         <div className="stats">
           <article><b>15</b><span>สัปดาห์การเรียนรู้</span></article>
@@ -575,17 +587,9 @@ function App(){
         <h2 className="blockTitle">กิจกรรมสำคัญของภาคการศึกษา</h2>
         <div className="milestones">
           <article className="milestone guest"><span>10 ก.ย. 2569</span><h3>Guest Speaker</h3><b>09.00–12.00 น.</b><p>การบรรยายพิเศษรวม Sec 1–6</p></article>
-          <article className="milestone midterm"><span>28 ก.ย.–2 ต.ค.</span><h3>สัปดาห์สอบกลางภาค</h3><b>TE101 ไม่มีสอบกลางภาค</b><p>โครงการที่ได้รับคัดเลือก ปรับแนวคิดก่อนเริ่ม Production หลังสอบ</p></article>
+          <article className="milestone midterm"><span>28 ก.ย.–2 ต.ค.</span><h3>สัปดาห์สอบกลางภาค</h3><b>TE101 ไม่มีสอบกลางภาค</b><p>ช่วงทบทวนและปรับแนวคิดก่อนเข้าสู่การดำเนินงานจริง</p></article>
           <article className="milestone visit"><span>20 ต.ค. 2569</span><h3>IMPACT Site Visit</h3><b>ศึกษาดูงานสถานที่จริง</b><p>Thunder Dome · Hall 9–10 · Royal Jubilee · Portal</p></article>
           <article className="milestone exam"><span>3 ธ.ค. 2569</span><h3>Final Exam</h3><b>13.00–16.00 น.</b><p>สอบปลายภาค TE101</p></article>
-        </div>
-
-        <div className="homeActions">
-          <button onClick={()=>setTab('course')}><b>แนะนำรายวิชา</b><span>ผู้สอน รูปแบบการเรียน และเกณฑ์ Project</span></button>
-          <button onClick={()=>setTab('calendar')}><b>เปิดปฏิทิน</b><span>ดูวันเรียน กิจกรรม และวันสอบ</span></button>
-          <button onClick={()=>setTab('project')}><b>ดู Final Project</b><span>ดู Timeline และสิ่งที่ต้องเตรียมสำหรับ Bidding</span></button>
-          <button onClick={()=>setTab('sections')}><b>ดู Sec ของตัวเอง</b><span>เลือก Sec เพื่อดูวัน เวลา ห้อง และแผนรายสัปดาห์</span></button>
-          <button onClick={()=>setTab('channels')}><b>เข้า LINE / Teams</b><span>QR Code LINE และ Team Code ของแต่ละกลุ่มเรียน</span></button>
         </div>
       </div>}
 
@@ -601,7 +605,7 @@ function App(){
       </div>}
 
       {tab==='weeks'&&<div>
-        <div className="pageTitle"><span className="eyebrow">15 WEEKS</span><h2>แผนการเรียนตลอดภาคการศึกษา</h2><p>คลิกแต่ละสัปดาห์เพื่อดูรายละเอียดการเรียนและกิจกรรม</p></div>
+        <div className="pageTitle"><span className="eyebrow">15 WEEKS</span><h2>แผนการเรียนตลอดภาคการศึกษา</h2><p>คลิกแต่ละสัปดาห์เพื่อดูเนื้อหา บทเรียน และกิจกรรมการเรียนรู้</p></div>
         <div className="weekGrid">{weeks.map(w=><button className="weekCard" onClick={()=>setWeek(w)} key={w.week}><span>W{w.week}</span><small>{w.range}</small><h3>{w.theme}</h3><p>{w.content}</p></button>)}</div>
       </div>}
 

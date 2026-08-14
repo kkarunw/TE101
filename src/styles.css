@@ -520,3 +520,31 @@ header h1{font-size:30px;line-height:1.1;margin:3px 0 0;letter-spacing:-.035em}
   .presentationFormatNote{display:block}
   .presentationFormatNote span{display:block;margin-top:3px}
 }
+
+/* ===== Home layout: cover -> quick menu -> course overview ===== */
+.courseCover{margin-bottom:14px}
+.homeActions{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  margin-top:0;
+  margin-bottom:16px;
+}
+.homeActions button{
+  min-height:104px;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.homeActions button:hover{
+  transform:translateY(-2px);
+  border-color:#d4d0e4;
+  box-shadow:0 8px 20px rgba(32,28,50,.06);
+}
+.hero{margin-top:0}
+@media(max-width:1200px){
+  .homeActions{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:820px){
+  .homeActions{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){
+  .homeActions{grid-template-columns:1fr}
+  .homeActions button{min-height:auto}
+}
