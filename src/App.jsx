@@ -45,6 +45,17 @@ function parseSessionDate(label){
   return `2026-${String(monthMap[m[2]]).padStart(2,'0')}-${String(Number(m[1])).padStart(2,'0')}`
 }
 
+
+function CalendarLegend(){
+  return <div className="calendarLegend" aria-label="คำอธิบายสีของ Section">
+    <span className="legendTitle">Section</span>
+    {[1,2,3,4,5,6].map(s=><span className="legendItem" key={s}>
+      <i className={`legendDot sec${s}`}></i>Sec {s}
+    </span>)}
+    <span className="legendItem legendAll"><i className="legendDot all"></i>กิจกรรมรวม / วันสำคัญ</span>
+  </div>
+}
+
 function Calendar({selectedSec,onPick}){
   const [mi,setMi]=useState(0)
   const {y,m,label}=months[mi]
@@ -125,7 +136,10 @@ function Calendar({selectedSec,onPick}){
             {practice==='start'&&<span>{practiceRange.title}</span>}
           </div>}
           <div className="dayEvents">
-            {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type} ${x.secClass?`sec${x.secClass}`:''}`} key={j}>{x.title}</span>)}
+            {items.slice(0,2).map((x,j)=><span className={`eventChip ${x.type} ${x.secClass?`sec${x.secClass}`:''}`} key={j}>
+              <span className="eventDesktopLabel">{x.title}</span>
+              <span className="eventMobileLabel">{x.secClass?`S${x.secClass}`:(x.type==='exam'?'สอบ':x.type==='closed'?'งด':x.title.includes('IMPACT')?'IMPACT':'•')}</span>
+            </span>)}
             {items.length>2&&<small className="moreEvents">+{items.length-2} รายการ</small>}
           </div>
         </button>
@@ -555,6 +569,7 @@ function CourseInfo(){
 
 function App(){
   const [tab,setTab]=useState('home')
+  const [mobileMenuOpen,setMobileMenuOpen]=useState(false)
   const [sec,setSec]=useState(1)
   const [filter,setFilter]=useState('all')
   const [week,setWeek]=useState(null)
@@ -573,9 +588,30 @@ function App(){
   ]
 
   return <div className="app">
-    <aside className="sidebar">
-      <div className="brand"><div className="logo">TE</div><div><b>TE101</b><span>Student Hub</span></div></div>
-      <nav>{nav.map(([id,label])=><button className={tab===id?'active':''} onClick={()=>setTab(id)} key={id}>{label}</button>)}</nav>
+    <aside className={`sidebar ${mobileMenuOpen?'mobileOpen':''}`}>
+      <div className="mobileSidebarTop">
+        <div className="brand">
+          <div className="logo">TE</div>
+          <div><b>TE101</b><span>Student Hub</span></div>
+        </div>
+        <button
+          className="mobileMenuBtn"
+          aria-label={mobileMenuOpen?'ปิดเมนู':'เปิดเมนู'}
+          onClick={()=>setMobileMenuOpen(v=>!v)}
+        >
+          {mobileMenuOpen?'×':'☰'}
+        </button>
+      </div>
+
+      <nav>{nav.map(([id,label])=><button
+        className={tab===id?'active':''}
+        onClick={()=>{
+          setTab(id)
+          setMobileMenuOpen(false)
+        }}
+        key={id}
+      >{label}</button>)}</nav>
+
       <div className="sideFoot"><small>{course.semester}</small><b>สอบปลายภาค</b><span>3 ธ.ค. 2569 · 13.00–16.00</span></div>
     </aside>
 
@@ -625,6 +661,7 @@ function App(){
         <div className="pageTitle rowTitle"><div><span className="eyebrow">CALENDAR</span><h2>ปฏิทินการเรียน กิจกรรม และการสอบ</h2><p className="calendarHint">แตะวันที่เพื่อดูรายละเอียด เวลา และกิจกรรมทั้งหมด</p></div>
           <select value={filter} onChange={e=>setFilter(e.target.value)}><option value="all">ทุก Sec</option>{[1,2,3,4,5,6].map(s=><option value={s} key={s}>Sec {s}</option>)}</select>
         </div>
+        <CalendarLegend/>
         <Calendar selectedSec={filter} onPick={setPicked}/>
         <div className="calendarNote">
           <b>หมายเหตุ</b>
