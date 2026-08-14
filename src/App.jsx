@@ -559,7 +559,15 @@ function App(){
 
       {tab==='home'&&<div>
         <div className="hero">
-          <div><span className="eyebrow">WELCOME TO TE101</span><h2>เรียนอุตสาหกรรมอีเว้นท์ ผ่านการลงมือทำจริง</h2><p>เรียนรู้พื้นฐานอุตสาหกรรม → พัฒนาแนวคิด → Bidding → วางแผน → จัด Public Event จริง → ประเมินผล</p></div>
+          <div>
+  <span className="eyebrow">TE101</span>
+  <h2>อุตสาหกรรมอีเว้นท์</h2>
+  <p>
+    ศึกษาพื้นฐานอุตสาหกรรมอีเว้นท์ ตั้งแต่การพัฒนาแนวคิด
+    การออกแบบประสบการณ์ การดำเนินงาน
+    จนถึงการประเมินผลและการประยุกต์ใช้ในการจัดงานจริง
+  </p>
+</div>
           <div className="heroDate"><b>สอบปลายภาค</b><span>3 ธ.ค. 2569</span><strong>13.00–16.00 น.</strong></div>
         </div>
 
